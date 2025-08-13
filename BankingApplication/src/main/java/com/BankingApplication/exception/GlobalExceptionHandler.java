@@ -27,12 +27,17 @@ public class GlobalExceptionHandler {
     }
 
 
-    /*
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleOtherExceptions(Exception ex) {
         return new ResponseEntity<>("Something went wrong: " + ex.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-     */
+     @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleJsonParseError(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body("Invalid input: Please check data types");
+    }
+
+    
 }
